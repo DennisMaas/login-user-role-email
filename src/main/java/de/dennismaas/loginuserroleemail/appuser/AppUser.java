@@ -1,4 +1,4 @@
-package de.dennismaas.loginuserroleemail.user;
+package de.dennismaas.loginuserroleemail.appuser;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package de.dennismaas.loginuserroleemail.user;
+package de.dennismaas.loginuserroleemail.appuser;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

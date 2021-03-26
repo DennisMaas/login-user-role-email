@@ -1,6 +1,6 @@
 package de.dennismaas.loginuserroleemail.security.config;
 
-import de.dennismaas.loginuserroleemail.user.AppUserService;
+import de.dennismaas.loginuserroleemail.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
