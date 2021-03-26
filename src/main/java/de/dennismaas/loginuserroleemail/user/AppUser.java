@@ -30,7 +30,8 @@ public class AppUser implements UserDetails {
             generator = "user_sequence"
     )
     private long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String username;
     private String email;
     private String password;
@@ -39,8 +40,9 @@ public class AppUser implements UserDetails {
     private Boolean locked;
     private Boolean enabled;
 
-    public AppUser(String name, String username, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
-        this.name = name;
+    public AppUser(String firstName, String lastName, String username, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.password = password;
