@@ -1,5 +1,6 @@
 package de.dennismaas.loginuserroleemail.registration.token;
 
+import de.dennismaas.loginuserroleemail.appuser.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,12 +37,15 @@ public class ConfirmationToken {
 
     private LocalDateTime confirmedAt;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "app_user_id")
+    private AppUser appUser;
 
-
-    public ConfirmationToken(String token, LocalDateTime expiresAt, LocalDateTime createdAt, LocalDateTime confirmedAt) {
+    public ConfirmationToken(String token, LocalDateTime expiresAt, LocalDateTime createdAt, LocalDateTime confirmedAt, AppUser appUser) {
         this.token = token;
         this.expiresAt = expiresAt;
         this.createdAt = createdAt;
         this.confirmedAt = confirmedAt;
+        this.appUser = appUser;
     }
 }
