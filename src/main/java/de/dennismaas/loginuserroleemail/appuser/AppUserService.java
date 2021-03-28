@@ -28,14 +28,21 @@ public class AppUserService implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
+
     public String signUpUser(AppUser appUser){
         boolean userExists = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
+
         if (userExists) {
+
+            // TODO: check if attributes are the same and
+            // TODO: if email not confirmed send confirmation email.
+
             throw new IllegalStateException("email already taken");
         }
-        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
 
+
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
         appUserRepository.save(appUser);
 
@@ -51,5 +58,9 @@ public class AppUserService implements UserDetailsService {
         // Todo: Send Email
 
         return token;
+    }
+
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
     }
 }
