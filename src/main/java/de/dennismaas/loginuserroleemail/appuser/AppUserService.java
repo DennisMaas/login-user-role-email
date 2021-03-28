@@ -29,14 +29,20 @@ public class AppUserService implements UserDetailsService {
     }
 
 
-    public String signUpUser(AppUser appUser){
+    public String signUpUser(AppUser appUser) {
         boolean userExists = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
 
         if (userExists) {
 
-            // TODO: check if attributes are the same and
-            // TODO: if email not confirmed send confirmation email.
+            AppUser appUserWithTokenExpired = appUserRepository.findByEmail(appUser.getEmail()).get();
+            Boolean enabled = appUserWithTokenExpired.getEnabled();
+
+            if (!enabled) {
+                String token = UUID.randomUUID().toString();
+
+                saveConfirmationToken(appUserWithTokenExpired, token);
+            }
 
             throw new IllegalStateException("email already taken");
         }
@@ -47,6 +53,13 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.save(appUser);
 
         String token = UUID.randomUUID().toString();
+
+        saveConfirmationToken(appUser, token);
+        return token;
+    }
+
+    private void saveConfirmationToken(AppUser appUser, String token) {
+
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
@@ -55,9 +68,6 @@ public class AppUserService implements UserDetailsService {
                 );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        // Todo: Send Email
-
-        return token;
     }
 
     public int enableAppUser(String email) {

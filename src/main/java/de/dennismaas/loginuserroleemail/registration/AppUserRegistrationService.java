@@ -39,6 +39,8 @@ public class AppUserRegistrationService {
         );
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link) );
+
+        //TODO: send email again after token expired and user tries to register a second time
         return token;
     }
 
